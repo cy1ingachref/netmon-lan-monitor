@@ -1,0 +1,17 @@
+[project]
+name = "netmon"
+version = "1.0.0"
+description = "Cyberpunk LAN monitor + blue/red defense console (Windows-first)"
+requires-python = ">=3.11"
+dependencies = [
+    "scapy>=2.5",
+    # Wireshark/tshark is used as the PRIMARY capture backend when installed;
+    # it is an optional, manually-installed system dependency, not a pip one.
+]
+
+[project.scripts]
+netmon = "netmon.cli:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,30 @@
+# --- runtime artifacts (regenerated at runtime, not source) ---
+capture.pcap
+packets_log.txt
+devices.json
+alerts.log
+devices_log.txt
+baseline.json
+devices.csv
+netmon_report.html
+_t_dev.json
+_t.txt
+router_clients.txt
+vendor_overrides.json
+__pycache__/
+*.pyc
+
+# --- Python ---
+venv/
+.venv/
+*.egg-info/
+.pytest_cache/
+__pycache__/
+
+# --- editor/OS ---
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- HERMES agent (not part of the project) ---
+AGENTS.md

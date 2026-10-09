@@ -5,7 +5,7 @@ import struct
 import unittest
 
 # Make the netmon package importable when run from anywhere.
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from netmon import dissect
 
 

@@ -3,7 +3,7 @@ import os
 import sys
 import unittest
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from netmon import discover
 
 
@@ -79,9 +79,15 @@ class PlaceholderMacUpgradeTest(unittest.TestCase):
         self._tf = tempfile.NamedTemporaryFile("w", suffix=".json", delete=False)
         self._tf.close()
         discover.DEVICES_DB = self._tf.name
+        # Mock resolve_name to avoid network probes (nbtstat / reverse DNS)
+        # that hang on Linux CI runners.
+        from unittest.mock import patch
+        self._name_patcher = patch.object(discover, 'resolve_name', return_value='')
+        self._name_patcher.start()
 
     def tearDown(self):
         discover.DEVICES_DB = self._bak
+        self._name_patcher.stop()
         try:
             import os
             os.remove(self._tf.name)
@@ -112,9 +118,15 @@ class BulkUpsertTest(unittest.TestCase):
         self._tf.close()
         discover.DEVICES_DB = self._tf.name
         discover._last_bulk_flush = 0.0
+        # Mock resolve_name to avoid network probes (nbtstat / reverse DNS)
+        # that hang on Linux CI runners.
+        from unittest.mock import patch
+        self._name_patcher = patch.object(discover, 'resolve_name', return_value='')
+        self._name_patcher.start()
 
     def tearDown(self):
         discover.DEVICES_DB = self._bak
+        self._name_patcher.stop()
         try:
             import os
             os.remove(self._tf.name)
